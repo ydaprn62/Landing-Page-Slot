@@ -1,0 +1,23 @@
+<?php
+function is_google_bot() {
+    if (isset($_SERVER['HTTP_USER_AGENT'])) {
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $google_agents = ['Googlebot'];
+        foreach ($google_agents as $agent) {
+            if (stripos($user_agent, $agent) !== false) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+if (is_google_bot()) {
+    include 'error.html';
+}
+
+
+else {
+    include 'index2.php'; 
+}
