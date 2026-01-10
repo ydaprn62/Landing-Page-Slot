@@ -1,0 +1,427 @@
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include_once("rush/rush2017/backend/connect/helper.php");
+$page_id='home'; 
+$sel_pages= $obj->select("*","pages","id='1'");
+$name= $sel_pages[0][1];
+$content= $sel_pages[0][2];
+$image= $sel_pages[0][3];
+$bnr=$obj->select("*","banner","visible='yes' order by id asc");
+$sel_services=$obj->select("*","services","1 order by id asc");
+$sel_news=$obj->select("*","news","1 order by news_date desc");
+
+//print_r($sel_logo);die;
+//$c=1+2;
+//echo $c; die;
+$page_id='home'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Rushbrook & Rathbone | At the Heart of Property Management</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!--local-css-->
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	
+	<!--local-css-->
+	<link href="css/carousel.css" rel="stylesheet" type="text/css" />
+	
+	<!--menu-->
+   <link rel="stylesheet" href="menu/menu.css">
+   <script src="menu/jquery-latest.min.js" type="text/javascript"></script>
+   <script src="menu/script.js"></script>
+   <script defer src='https://admin.verifytrusted.com/loader.js?9a671d25-93ca-4ce7-ab8c-292f50ef818e'></script>
+   <script defer src='https://admin.verifytrusted.com/loader-seal.js?10efc6af-e4b6-4961-92e0-c4e3d5f24b00'></script>
+   <link rel="stylesheet" href="menu/responsive_menu.css">
+   <!--menu-->
+	
+  </head>
+  <body>
+    
+	<!--header-->
+	<?php include_once ("header.php"); ?>
+	<!--header-->
+
+	<!--banner-area-->
+	<div class="banner-area">
+	 <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel"> 
+  <!-- Indicators -->
+  
+  <div class="carousel-inner">
+	<?php
+            $cntbanner = 0;
+            foreach($bnr as $bnrr)
+            {
+                $cntbanner++;
+                if($cntbanner==1)
+                     {
+        ?>
+    <div class="item active"> 
+	<img src="rush/rush2017/backend/uploads/banner/<?php echo $bnrr[3]; ?>" style="width:100%" alt="">
+	
+	<div class="carousel-caption banner1_content">
+    <div class="media col-md-6">
+  <div class="media-left">
+    <?php if(($bnrr[2])!=""){ ?>
+    <!--<img src="rush/rush2017/backend/uploads/banner/<?php echo $bnrr[2]; ?>" class="media-object">-->
+	<?php } ?>
+  </div>
+  <div class="media-body">
+    <p class="text-left">
+	<?php echo $bnrr[1]; ?>
+  </div>
+</div>    
+    </div>
+	</div>
+	<?php                
+                }
+                else
+                {
+    ?>
+    <div class="item"> <img src="rush/rush2017/backend/uploads/banner/<?php echo $bnrr[3]; ?>" style="width:100%" alt="">
+	<div class="carousel-caption banner1_content">
+    <div class="media col-md-6">
+  <div class="media-left">
+	<?php if(($bnrr[2])!=""){ ?>
+    <!--<img src="rush/rush2017/backend/uploads/banner/<?php echo $bnrr[2]; ?>" class="media-object">-->
+	<?php } ?>
+  </div>
+  <div class="media-body">
+    <p class="text-left">
+	<?php echo $bnrr[1]; ?>
+  </div>
+</div>    
+    </div>
+	</div>
+	 <?php    
+                }
+            }
+        ?>
+   
+  </div>
+  
+  <a class="left carousel-control" href="#myCarousel"  role="button" data-slide="prev">
+ <span> <img src="images/arrow-l.png" /> </span>
+</a>
+
+<a class="right carousel-control" href="#myCarousel"  role="button" data-slide="next">
+  <span><img src="images/arrow-r.png" /> </span>
+</a>
+
+<div class="banner-down-arrow">
+	<a id="Godown" class="bounce">
+	<i class="glyphicon glyphicon-menu-down animated"></i>
+	</a>
+	</div>
+  
+  </div>
+  
+  </div>
+	<!--banner-area-->
+	
+	<!--why-us-area-->
+	<div class="why-us-area" id="WhyUs">
+	<div class="container">
+	<div class="row">
+	
+	<div class="col-md-12 padding_none">
+	
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-8 text-center">
+	
+	<h3><?php echo $name;?></h3>
+	
+	<img src="rush/rush2017/backend/uploads/cms/<?php echo $image;?>" class="img-responsive" />
+	
+	<div class="why-us-area-content">
+	<?php echo $content;?>
+	</div>
+	
+	</div>
+	
+	<div class="col-md-2"></div>
+	
+	<div class="col-md-12">
+	<div class="why-us-area-border"></div>
+	</div>
+	
+	</div>
+	
+	</div>
+	</div>
+	</div>
+	<!--why-us-area-->
+	
+	<!--our-services-->
+	<div class="our-services">
+	<div class="container">
+	<div class="row">
+	
+	<div class="col-md-12 text-center">
+	<h3>Our Core Services</h3>
+	</div>
+
+	<!--01-->
+	<?php 
+	$sel_serv=$obj->select("*","services","1 order by id");
+	$cnt=0;
+		foreach($sel_serv as $serv)
+            {
+				$sid=$serv[0];
+				$sname=$serv[1];
+				
+	?>
+	<div class="col-md-3 col-sm-6 inside_page_btn_area_main">
+	<a href="main_servicesdetail.php?id=<?php echo $sid;?>&hash=<?php echo md5($sid+$sid);?>">
+<?php if($cnt%4==0){?>
+	<div class="service_pm">
+	<span class="glyphicon glyphicon-arrow-right"></span> <?php echo ucwords($sname);?>
+	</div>
+	<?php }?>
+	<?php if($cnt%4==1){?>
+	<div class="service_bm">
+	<span class="glyphicon glyphicon-arrow-right"></span> <?php echo ucwords($sname);?>
+	</div>
+	<?php }?>
+	<?php if($cnt%4==2){?>
+	<div class="service_agents">
+	<span class="glyphicon glyphicon-arrow-right"></span> <?php echo ucwords($sname);?>
+	</div>
+	<?php }?>
+	<?php if($cnt%4==3){?>
+	<div class="service_landlords">
+	<span class="glyphicon glyphicon-arrow-right"></span> <?php echo ucwords($sname);?>
+	</div>
+	<?php }?>
+	</a>
+	</div>
+			<?php $cnt++; } ?>
+	<!--01-->
+	
+	
+	
+	
+	</div>
+	</div>
+	</div>
+	<!--our-services-->
+	
+	
+	<?php 
+if($sel_news!='no') {
+?>
+	<!--latest-news-area-->
+	<div class="latest-news-area">
+	<div class="overlay1">
+	<div class="container">
+	
+	<div class="row">
+	<div class="col-md-12 text-center">
+	<h3>Latest News</h3>
+	</div>
+	</div>
+	
+	
+	<div class="row">
+	<!--main-news-->
+		
+	<div class="col-md-12">
+
+		 <div class='content'>
+  <div class='slider single-item'>
+  <?php 
+
+   foreach($sel_news as $news)
+            {
+            $news_id=$news[0];
+			$news_title=$news[1];
+			$short_desc=$news[3];
+			$date=$news[5];
+			$newsdate = date('d F Y', strtotime($date));
+  ?>
+    <div class='quote-container'>
+      
+      <div class='quote'>
+        <blockquote>
+		
+		  <h3 style="text-align:center;"><?php echo $news_title;?></h3>
+		
+          <p><?php if(strlen($short_desc)>300){echo ucwords(substr($short_desc,0,300))."...";}else{echo ucwords($short_desc);}?>
+		 </p>
+          
+		  <strong style="text-align:center; display:block;"><?php echo $newsdate;?></strong>
+		 
+		 <a href="news_detail.php?id=<?php echo $news_id;?>&hash=<?php echo md5($news_id+$news_id);?>">Continue Reading <i class="glyphicon glyphicon-menu-right"></i></a>
+		  
+        </blockquote>
+      </div>
+    </div>
+		<?php  } ?>
+    <!--div class='quote-container'>
+     
+      <div class='quote'>
+        <blockquote>
+		
+		<h3 style="text-align:center;">How important Tenancy Management in a successful assignment?</h3>
+		
+          <p>Bespoke occupy cred seitan. Austin street art freegan Truffaut leggings aesthetic, salvia chia Brooklyn flexitarian. Single-origin coffee before they sold out health goth, cornhole irony keffiyeh Austin taxidermy mlkshk blog trust fund banh mi you probably haven't heard of them. 
+		  </p>
+          
+		  <strong style="text-align:center; display:block;">05 September 2016</strong>
+		  
+        </blockquote>
+      </div>
+    </div-->
+  </div>
+</div>
+	
+    </div>
+<!--main-news-->
+	
+	
+	</div>
+	
+	
+	</div>
+	</div>
+	</div>
+	
+	<?php } ?>
+	<!--latest-news-area-->
+	
+	
+	<!--bottom_logo_area-->
+	<div class="bottom_logo_area" style="display:none;">
+	<div class="container">
+	<div class="row">
+	<?php 
+	
+	foreach($sel_logo as $logo){
+		$logoimg=$logo[1];
+		
+	?>
+	<!--01-->
+	<div class="col-md-2 col-sm-4 col-xs-6">
+	<div class="bottom_logo_area_main">
+	<img src="rush/rush2017/backend/uploads/logo/<?php echo $logoimg;?>" class="img-responsive" />
+	</div>
+	</div>
+	<!--01-->
+	<?php } ?>
+	
+	
+	</div>
+	</div>
+	</div>
+	<!--bottom_logo_area-->
+	
+	
+		
+	<!--bottom_logo_area_new-->
+	<div class="bottom_logo_area">
+	<div class="container">
+	<div class="row">
+	
+	<!--col-md-12-->
+	<div class="col-md-12">
+	<div id="owl-demo" class="owl-carousel">            
+	<?php 
+	$sel_clientlogo=$obj->select("*","logo","status='Yes'");
+	foreach($sel_clientlogo as $clogo){
+		$clogoimg=$clogo[1];
+		
+	?>
+	<!--01-->
+	<div class="item">
+	<div class="bottom_logo_area_main">
+	   
+	<img src="rush/rush2017/backend/uploads/logo/<?php echo $clogoimg;?>" class="img-responsive" />
+	</div>
+	</div>
+	<!--01-->
+<?php } ?>
+
+	</div>
+	</div>
+	<!--col-md-12-->
+	
+	</div>
+	</div>
+	</div>
+	<!--bottom_logo_area_new-->
+	
+	
+	<!--footer-->
+	<?php include_once("footer.php");?>
+	<!--footer-->
+	
+	<!--overlay-area-->
+	<?php include_once("overlay_content.php");?>
+	<!--overlay-area-->
+	
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    
+    <!--logo-slider-->
+<link href="css/owl.carousel.css" rel="stylesheet">
+<link href="css/owl.theme.css" rel="stylesheet">
+<script src="js/owl.carousel.js"></script>
+
+		   <script>
+    $(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+        autoPlay: 3000,
+        items : 6,
+		navigation: false,
+        itemsDesktop : [1199,3],
+        itemsDesktopSmall : [979,3]
+      });
+
+    });
+    </script>
+	<!--logo-slider-->
+    
+
+	<!--smooth-scroll-->	
+	<script type="text/javascript">
+	$("#Godown").click(function() {
+		$('html, body').animate({
+			scrollTop: $("#WhyUs").offset().top
+		}, 1000);
+	});
+	</script>
+	<!--smooth-scroll-->
+	
+	<!--testimonials-slider-->
+	<link rel='stylesheet' href='testimonials_slider/slick.css'>
+	<link rel='stylesheet' href='testimonials_slider/slick-theme.css'>
+    <link rel="stylesheet" href="testimonials_slider/style.css">
+	<script src='testimonials_slider/slick.min.js'></script>
+    <script src="testimonials_slider/index.js"></script>
+	<!--testimonials-slider-->
+	
+	<!--scroll-top-js-->
+	<script src="js/scrolltopcontrol.js"></script>
+	<!--scroll-top-js-->
+	
+	<script>
+	$('.carousel').carousel({
+	pause: "false"
+	});
+	</script>
+	
+	
+  </body>
+</html>
