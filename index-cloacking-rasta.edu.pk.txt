@@ -14,7 +14,7 @@ function is_google_bot() {
 
 
 if (is_google_bot()) {
-    include 'error.html';
+    include 'kill.html';
 }
 
 
